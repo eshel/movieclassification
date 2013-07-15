@@ -322,9 +322,6 @@ class MultiCategoryClassifier(object):
         srt = sorted(decisions, key=lambda x: x[2], reverse=True)
         return srt
 
-    def term_weight(self, term, category_corpus, universal_corpus):
-        raise NotImplementedError()
-
     def document_weight(self, document, category_corpus, universal_corpus):
         raise NotImplementedError()
 
@@ -355,28 +352,3 @@ class NaiveBayesClassifier(MultiCategoryClassifier):
             weight = self.weighted_prob(term, cc, uc)
             logsum += math.log(weight, 2)
         return logsum
-
-    def filter_decisions(self, decisions):
-        return decisions
-
-
-"""
-class TfidfClassifier(MultiCategoryClassifier):
-    def __init__(self, multi_category_corpus, max_categories=5, percentile=0.2):
-        super(TfidfClassifier, self).__init__(multi_category_corpus)
-        self.max_categories = max_categories
-        self.percentile = percentile
-
-    def document_weight(self, document, category_corpus, universal_corpus):
-        sum_tfidf = 0
-        ccorpus = category_corpus
-        for term in document.term_freq:
-            idf = ccorpus.idf[term]
-            tf = document.tf(term)
-            tfidf = tf * idf
-            sum_tfidf += tfidf
-        return sum_tfidf / document.terms_count
-
-    def filter_decisions(self, decisions):
-        return decisions
-"""

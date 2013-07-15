@@ -8,7 +8,7 @@ class PickleCache(object):
         self.pickle_suffix = pickle_suffix
 
     def pickle_name(self, fpath):
-        return os.path.join(fpath, self.pickle_suffix)
+        return fpath + self.pickle_suffix
 
     def exists(self, fpath):
         return os.path.isfile(self.pickle_name(fpath))
